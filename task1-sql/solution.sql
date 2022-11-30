@@ -1,3 +1,5 @@
+USE northwind;
+
 # ---------------------------------------------------------------------------- #
 # Задание 1                                                                    #
 # Работа с типами данных Date, NULL значениями, трехзначная логика. Возвраще-  #
@@ -14,11 +16,28 @@
 # OrderID, ShippedDate и ShipVia. Пояснить почему сюда не попали заказы с
 # NULL-ом в колонке ShippedDate.
 
+SELECT OrderID, ShippedDate, ShipVia
+FROM Orders
+WHERE ShippedDate >= '1998-05-05' AND ShipVia >= 2;
+
+# В трёхзначной логике результатом логической операции (в том числе >=) может
+# быть true, false, unknown. В данном случае, при сравнении с NULL, результат
+# - unkown. Чтобы заказ попал в выборку, результатом должно быть true.
+
 # 1.2
 # Написать запрос, который выводит только недоставленные заказы из таблицы
 # Orders. В результатах запроса высвечивать для колонки ShippedDate вместо
 # значений NULL строку 'Not Shipped' – необходимо использовать CASЕ выражение.
 # Запрос должен высвечивать только колонки OrderID и ShippedDate.
+
+SELECT
+    OrderID,
+    CASE
+	    WHEN ShippedDate IS NULL THEN 'Not Shipped'
+	    ELSE ShippedDate
+	END AS ShippedDate
+FROM Orders
+WHERE ShippedDate IS NULL;
 
 # 1.3
 # Выбрать в таблице Orders заказы, которые были доставлены после 5 мая 1998 года
@@ -28,6 +47,15 @@
 # для колонки ShippedDate вместо значений NULL строку 'Not Shipped' - необходимо
 # использовать функцию NVL, для остальных значений высвечивать дату в формате
 # "ДД.ММ.ГГГГ".
+
+SELECT
+    OrderID AS `Order Number`,
+    COALESCE(
+        DATE_FORMAT(ShippedDate, '%d.%m.%Y'),
+        'Not Shipped'
+    ) AS `Shipped Date`
+FROM Orders
+WHERE ShippedDate > '1998-05-05' OR ShippedDate IS NULL;
 
 # ---------------------------------------------------------------------------- #
 # Задание 2                                                                    #
@@ -40,17 +68,31 @@
 # пользователя и названием страны в результатах запроса. Упорядочить результаты
 # запроса по имени заказчиков и по месту проживания.
 
+SELECT ContactName, Country
+FROM Customers
+WHERE Country IN ('USA', 'Canada')
+ORDER BY ContactName, Country;
+
 # 2.2
 # Выбрать из таблицы Customers всех заказчиков, не проживающих в USA и Canada.
 # Запрос сделать с помощью оператора IN. Высвечивать колонки с именем пользова-
 # теля и названием страны в результатах запроса. Упорядочить результаты запроса
 # по имени заказчиков.
 
+SELECT ContactName, Country
+FROM Customers
+WHERE Country NOT IN ('USA', 'Canada')
+ORDER BY ContactName;
+
 # 2.3
 # Выбрать из таблицы Customers все страны, в которых проживают заказчики. Страна
 # должна быть упомянута только один раз и список отсортирован по убыванию. Не
 # использовать предложение GROUP BY. Высвечивать только одну колонку в результа-
 # тах запроса.
+
+SELECT DISTINCT Country
+FROM Customers
+ORDER BY Country DESC;
 
 # ---------------------------------------------------------------------------- #
 # Задание 3                                                                    #
@@ -63,11 +105,20 @@
 # колонка Quantity в таблице Order_Details. Использовать оператор BETWEEN.
 # Запрос должен высвечивать только колонку OrderID.
 
+SELECT DISTINCT OrderID
+FROM `Order Details`
+WHERE Quantity BETWEEN 3 AND 10;
+
 # 3.2
 # Выбрать всех заказчиков из таблицы Customers, у которых название страны
 # начинается на буквы из диапазона B и G. Использовать оператор BETWEEN. Прове-
 # рить, что в результаты запроса попадает Germany. Запрос должен высвечивать
 # только колонки CustomerID и Country и отсортирован по Country.
+
+SELECT CustomerID, Country
+FROM Customers
+WHERE Country BETWEEN 'B' AND 'H'
+ORDER BY Country;
 
 # 3.3
 # Выбрать всех заказчиков из таблицы Customers, у которых название страны начи-
@@ -76,6 +127,17 @@
 # Country. С помощью опции "Execute Explain Plan" определить какой запрос
 # предпочтительнее 3.2 или 3.3, необходимо объяснить почему и написать ответ в
 # комментариях к текущему запросу.
+
+SELECT CustomerID, Country
+FROM Customers
+WHERE 'B' <= Country AND Country < 'H'
+ORDER BY Country;
+
+# Excution Plan для обоих запросов выглядит идентично. Отсюда можно сделать
+# вывод, что с точки зрения производительности разницы между ними нет. Более
+# Того, в документации MySQL сказано, что "(...) expr BETWEEN min AND max (...)
+# is equivalent to the expression (min <= expr AND expr <= max). В данном случае
+# удобнее использовать вариант (3.3), чтобы не включать правую грань.
 
 # ---------------------------------------------------------------------------- #
 # Задание 4                                                                    #
@@ -87,6 +149,10 @@
 # подстрока 'chocolade'. Известно, что в подстроке 'chocolade' может быть
 # изменена одна буква 'c' в середине - найти все продукты, которые удовлетворяют
 # этому условию. Подсказка: в результате должны быть найдены 2 строки.
+
+SELECT ProductName
+FROM Products
+WHERE ProductName LIKE '%cho_olade%';
 
 # ---------------------------------------------------------------------------- #
 # Задание 5                                                                    #
@@ -100,19 +166,28 @@
 # "." – разделитель целой и дробной части, при этом дробная часть должна
 # содержать цифры до сотых, пример: $1,234.00
 # Скидка (колонка Discount) составляет процент из стоимости для данного товара.
-# Для определениядействительной цены на проданный продукт надо вычесть скидку из
+# Для определения действительной цены на проданный продукт надо вычесть скидку из
 # указанной в колонке UnitPrice цены. Результатом запроса должна быть одна
 # запись с одной колонкой с названием колонки 'Totals'.
+
+SELECT CONCAT('$', FORMAT(SUM(UnitPrice*(1-Discount)*Quantity), 2)) AS Totals
+FROM `Order Details`;
 
 # 5.2
 # По таблице Orders найти количество заказов, которые еще не были доставлены
 # (т.е. в колонке ShippedDate нет значения даты доставки). Использовать при этом
 # запросе только оператор COUNT. Не использовать предложения WHERE и GROUP.
 
+SELECT COUNT(*) - COUNT(ShippedDate) AS NotShippedCount
+FROM Orders;
+
 # 5.3
 # По таблице Orders найти количество различных покупателей (CustomerID),
 # сделавших заказы. Использовать функцию COUNT и не использовать предложения
 # WHERE и GROUP.
+
+SELECT COUNT(DISTINCT CustomerID) AS CustomerCount
+FROM Orders;
 
 # ---------------------------------------------------------------------------- #
 # Задание 6                                                                    #
@@ -125,6 +200,13 @@
 # татах запроса надо высвечивать две колонки c названиями Year и Total. Написать
 # проверочный запрос, который вычисляет количество всех заказов.
 
+SELECT YEAR(OrderDate) AS Year, COUNT(*) AS Total
+FROM Orders
+GROUP BY Year;
+
+SELECT COUNT(*)
+FROM Orders;
+
 # 6.2
 # По таблице Orders найти количество заказов, cделанных каждым продавцом. Заказ
 # для указанного продавца – это любая запись в таблице Orders, где в колонке
@@ -136,10 +218,26 @@
 # 'Seller' и колонку c количеством заказов высвечивать с названием 'Amount'.
 # Результаты запроса должны быть упорядочены по убыванию количества заказов.
 
+# Не понимаю, что значит "эта строка LastName & FirstName должна быть получена
+# отдельным запросом в колонке основного запроса". Если моё решение этому пункту
+# не удовлетворяет, прошу пояснить, что тут имеется в виду.
+SELECT
+    CONCAT(e.LastName, ' ', e.FirstName) AS Seller,
+    COUNT(*) AS Amount
+FROM Orders o JOIN Employees e ON o.EmployeeID = e.EmployeeID
+GROUP BY o.EmployeeID
+ORDER BY Amount DESC;
+
 # 6.3
 # Выбрать 5 стран в которых проживает наибольшее количество заказчиков. Список
 # должен быть отсортирован по убыванию популярности. Необходимо выводить два
 # столбца - Country и Count (количество заказчиков).
+
+SELECT Country, COUNT(*) AS Count
+FROM Customers
+GROUP BY Country
+ORDER BY Count DESC
+LIMIT 5;
 
 # 6.4
 # По таблице Orders найти количество заказов, cделанных каждым продавцом и для
@@ -164,6 +262,17 @@
 # +--------+----------+--------------------------------------------------------+
 # * обратите внимание: первой строчкод должна выводиться строка ALL-ALL
 
+-- SELECT
+--     IF(GROUPING(o.EmployeeID), 'ALL', CONCAT(e.LastName, ' ', e.FirstName)) AS Seller,
+--     IF(GROUPING(o.CustomerID), 'ALL', c.ContactName) AS Customer,
+--     COUNT(*) AS Amount
+-- FROM Orders o
+--     JOIN Employees e ON o.EmployeeID = e.EmployeeID
+--     JOIN Customers c ON o.CustomerID  = c.CustomerID
+-- WHERE YEAR(OrderDate) = 1998
+-- GROUP BY o.EmployeeID, o.CustomerID WITH ROLLUP
+-- ORDER BY Seller, Customer, Amount DESC;
+
 # 6.5
 # Найти покупателей и продавцов, которые живут в одном городе. Если в городе
 # живут только один или несколько продавцов или только один или несколько поку-
@@ -174,6 +283,23 @@
 # записи), 'City'. Отсортировать результаты запроса по колонке 'City' и по
 # 'Person'.
 
+SELECT c.ContactName AS Person, 'Customer' AS Type, c.City
+FROM Customers c
+WHERE EXISTS (
+    SELECT *
+    FROM Employees e
+    WHERE c.City = e.City
+)
+UNION
+SELECT CONCAT(e.LastName, ' ', e.FirstName) AS Person, 'Seller' AS Type, e.City
+FROM Employees e
+WHERE EXISTS (
+    SELECT *
+    FROM Customers c
+    WHERE c.City = e.City
+)
+ORDER BY City, Person;
+
 # 6.6
 # Найти всех покупателей, которые живут в одном городе. В запросе использовать
 # соединение таблицы Customers c собой - самосоединение. Высветить колонки
@@ -182,11 +308,30 @@
 # рый высвечивает города, которые встречаются более одного раза в таблице
 # Customers. Это позволит проверить правильность запроса.
 
+SELECT DISTINCT c1.City, c1.CustomerID
+FROM Customers c1 JOIN Customers c2 ON c1.City = c2.City
+WHERE c1.CustomerID <> c2.CustomerID 
+ORDER BY City;
+
+SELECT City, COUNT(*) Count
+FROM Customers
+WHERE City IS NOT NULL
+GROUP BY City
+HAVING Count > 1;
+
 # 6.7
 # По таблице Employees найти для каждого продавца его руководителя, т.е. кому он
 # делает репорты. Высветить колонки с именами 'User Name' (LastName) и 'Boss'.
 # В колонках должны быть высвечены имена из колонки LastName. Высвечены ли все
 # продавцы в этом запросе?
+
+SELECT e.LastName AS `User Name`, b.LastName AS Boss
+FROM Employees e JOIN Employees b ON e.ReportsTo = b.EmployeeID;
+
+# Высвечены не все продавцы. Есть такие, у которых ReportsTo - NULL.
+SELECT LastName
+FROM Employees
+WHERE ReportsTo IS NULL;
 
 # ---------------------------------------------------------------------------- #
 # Задание 7                                                                    #
@@ -201,6 +346,26 @@
 # между таблицами Employees и Territories надо использовать графическую схему
 # для базы Northwind.
 
+# В MySQL версии скрипта вместо 'Western' 'Westerns'. Наверное опечатка.
+
+SELECT LastName, TerritoryDescription
+FROM
+    Employees
+    NATURAL JOIN EmployeeTerritories
+    NATURAL JOIN Territories
+    NATURAL JOIN Region
+WHERE RegionDescription = 'Westerns';
+
+# или
+
+SELECT e.LastName, t.TerritoryDescription
+FROM
+    Employees e
+    JOIN EmployeeTerritories et ON e.EmployeeID = et.EmployeeID
+    JOIN Territories t ON et.TerritoryID = t.TerritoryID
+    JOIN Region r ON t.RegionID = r.RegionID 
+WHERE RegionDescription = 'Westerns';
+
 # ---------------------------------------------------------------------------- #
 # Задание 8                                                                    #
 # Использование Outer JOIN                                                     #
@@ -213,6 +378,11 @@
 # результатах запроса. Упорядочить результаты запроса по возрастанию количества
 # заказов.
 
+SELECT c.ContactName, COUNT(o.CustomerID) AS OrderCount
+FROM Customers c LEFT JOIN Orders o ON c.CustomerID = o.CustomerID 
+GROUP BY c.CustomerID
+ORDER BY OrderCount;
+
 # ---------------------------------------------------------------------------- #
 # Задание 9                                                                    #
 # Использование подзапросов                                                    #
@@ -224,6 +394,40 @@
 # 0). Использовать вложенный SELECT для этого запроса с использованием оператора
 # IN. Можно ли использовать вместо оператора IN оператор '=' ?
 
+# Привожу два решения на две интерпертации.
+
+# 1. Поставщики у которых вообще нет товаров на складе:
+SELECT CompanyName
+FROM Suppliers
+WHERE SupplierID IN (
+	SELECT SupplierID 
+	FROM Products
+	GROUP BY SupplierID
+	HAVING SUM(UnitsInStock) = 0
+);
+
+# Этот запрос можно переписать так:
+SELECT s.CompanyName
+FROM Suppliers s
+WHERE (
+	SELECT SUM(UnitsInStock)
+	FROM Products p
+	WHERE p.SupplierID = s.SupplierID
+) = 0;
+
+# 2. Поставщики у которы есть товар, которого нет на складе:
+SELECT CompanyName
+FROM Suppliers
+WHERE SupplierID IN (
+	SELECT SupplierID 
+	FROM Products
+	WHERE UnitsInStock = 0
+);
+
+# Этот запрос нельзя переписать, исопльзуя = 0, потому что у одного поставщика
+# может быть несколько товаров и, как следствие, подзапрос возвращает несколько
+# строк.
+
 # ---------------------------------------------------------------------------- #
 # Задание 10                                                                   #
 # Коррелированный запрос                                                       #
@@ -232,6 +436,14 @@
 # 10.1
 # Высветить всех продавцов, которые имеют более 150 заказов. Использовать
 # вложенный коррелированный SELECT.
+
+SELECT e.EmployeeID, CONCAT(e.LastName, ' ', e.FirstName) AS Name
+FROM Employees e
+WHERE (
+    SELECT COUNT(*)
+    FROM Orders o
+    WHERE o.EmployeeID = e.EmployeeID
+) > 150;
 
 # ---------------------------------------------------------------------------- #
 # Задание 11                                                                   #
@@ -242,6 +454,14 @@
 # Высветить всех заказчиков (таблица Customers), которые не имеют ни одного
 # заказа (подзапрос по таблице Orders). Использовать коррелированный SELECT и
 # оператор EXISTS.
+
+SELECT c.CustomerID, c.ContactName
+FROM Customers c
+WHERE NOT EXISTS (
+    SELECT *
+    FROM Orders o
+    WHERE o.CustomerID = c.CustomerID
+);
 
 # ---------------------------------------------------------------------------- #
 # Задание 12                                                                   #
@@ -254,3 +474,6 @@
 # Employees (колонка LastName ) из этой таблицы. Алфавитный список должен
 # быть отсортирован по возрастанию.
 
+SELECT DISTINCT LEFT(LastName, 1) AS Letter
+FROM Employees
+ORDER BY Letter;
