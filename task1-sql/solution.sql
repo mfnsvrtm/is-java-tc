@@ -221,10 +221,15 @@ FROM Orders;
 # Не понимаю, что значит "эта строка LastName & FirstName должна быть получена
 # отдельным запросом в колонке основного запроса". Если моё решение этому пункту
 # не удовлетворяет, прошу пояснить, что тут имеется в виду.
+
 SELECT
-    CONCAT(e.LastName, ' ', e.FirstName) AS Seller,
+    (
+		SELECT CONCAT(e.LastName, ' ', e.FirstName)
+		FROM Employees e
+		WHERE e.EmployeeID = o.EmployeeID
+    ) AS Seller,
     COUNT(*) AS Amount
-FROM Orders o JOIN Employees e ON o.EmployeeID = e.EmployeeID
+FROM Orders o
 GROUP BY o.EmployeeID
 ORDER BY Amount DESC;
 
