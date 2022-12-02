@@ -33,7 +33,6 @@ CREATE TABLE bid (
 
 CREATE TABLE purchase (
     id SERIAL PRIMARY KEY,
-    lot_id SERIAL NOT NULL,
     bid_id SERIAL NOT NULL,
     amount DECIMAL(9, 2) NOT NULL,
     payment_method VARCHAR(30) NOT NULL,
@@ -73,7 +72,6 @@ ALTER TABLE lot ADD CONSTRAINT fk_lot_item FOREIGN KEY (item_id) REFERENCES item
 ALTER TABLE lot ADD CONSTRAINT fk_lot_bid FOREIGN KEY (winning_bid_id) REFERENCES bid(id);
 ALTER TABLE bid ADD CONSTRAINT fk_bid_lot FOREIGN KEY (lot_id) REFERENCES lot(id);
 ALTER TABLE bid ADD CONSTRAINT fk_bid_user FOREIGN KEY (bidder_id) REFERENCES "user"(id);
-ALTER TABLE purchase ADD CONSTRAINT fk_purchase_lot FOREIGN KEY (lot_id) REFERENCES lot(id);
 ALTER TABLE purchase ADD CONSTRAINT fk_purchase_bid FOREIGN KEY (bid_id) REFERENCES bid(id);
 ALTER TABLE "user" ADD CONSTRAINT fk_user_address FOREIGN KEY (address_id) REFERENCES address(id);
 ALTER TABLE user_group ADD CONSTRAINT fk_user_group_user FOREIGN KEY (user_id) REFERENCES "user"(id);
