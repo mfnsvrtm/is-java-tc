@@ -12,7 +12,7 @@ CREATE TABLE lot (
     item_id SERIAL,
     starting_price DECIMAL(9, 2),
     auction_start TIMESTAMPTZ NOT NULL,
-    auction_end TIMESTAMPTZ
+    auction_end TIMESTAMPTZ NOT NULL
 );
 
 CREATE TABLE category (
