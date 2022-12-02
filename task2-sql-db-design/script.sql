@@ -50,13 +50,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE address (
     id SERIAL PRIMARY KEY,
-    country VARCHAR(30) NOT NULL,
-    district VARCHAR(50) NOT NULL,
-    city VARCHAR(50) NOT NULL,
-    street VARCHAR(50) NOT NULL,
-    building VARCHAR(30) NOT NULL,
-    apartment VARCHAR(10) NOT NULL,
-    postal_code VARCHAR(30) NOT NULL
+    address TEXT
 );
 
 CREATE TABLE "group" (
