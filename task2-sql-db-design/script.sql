@@ -13,7 +13,8 @@ CREATE TABLE lot (
     starting_price DECIMAL(9, 2),
     minimum_bid_increment DECIMAL(9, 2),
     auction_start TIMESTAMPTZ NOT NULL,
-    auction_end TIMESTAMPTZ NOT NULL
+    auction_end TIMESTAMPTZ NOT NULL,
+    winning_bid_id SERIAL
 );
 
 CREATE TABLE category (
@@ -68,6 +69,7 @@ CREATE TABLE user_group (
 ALTER TABLE item ADD CONSTRAINT fk_item_category FOREIGN KEY (category_id) REFERENCES category(id);
 ALTER TABLE item ADD CONSTRAINT fk_item_user FOREIGN KEY (seller_id) REFERENCES "user"(id);
 ALTER TABLE lot ADD CONSTRAINT fk_lot_item FOREIGN KEY (item_id) REFERENCES item(id);
+ALTER TABLE lot ADD CONSTRAINT fk_lot_bid FOREIGN KEY (winning_bid_id) REFERENCES bid(id);
 ALTER TABLE bid ADD CONSTRAINT fk_bid_lot FOREIGN KEY (lot_id) REFERENCES lot(id);
 ALTER TABLE bid ADD CONSTRAINT fk_bid_user FOREIGN KEY (bidder_id) REFERENCES "user"(id);
 ALTER TABLE purchase ADD CONSTRAINT fk_purchase_lot FOREIGN KEY (lot_id) REFERENCES lot(id);
