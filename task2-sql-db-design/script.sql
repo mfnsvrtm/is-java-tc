@@ -27,7 +27,8 @@ CREATE TABLE bid (
     lot_id SERIAL NOT NULL,
     bidder_id SERIAL NOT NULL,
     amount DECIMAL(9, 2) NOT NULL,
-    time TIMESTAMPTZ NOT NULL
+    time TIMESTAMPTZ NOT NULL,
+    retracted BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 CREATE TABLE purchase (
