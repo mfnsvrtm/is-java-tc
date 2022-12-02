@@ -11,6 +11,7 @@ CREATE TABLE lot (
     id SERIAL PRIMARY KEY,
     item_id SERIAL,
     starting_price DECIMAL(9, 2),
+    minimum_bid_increment DECIMAL(9, 2),
     auction_start TIMESTAMPTZ NOT NULL,
     auction_end TIMESTAMPTZ NOT NULL
 );
