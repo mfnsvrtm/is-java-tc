@@ -10,7 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class SessionUtils {
+public class SessionUtil {
     private static final SessionFactory factory = initializeSessionFactory();
 
     public static Session openSession() {

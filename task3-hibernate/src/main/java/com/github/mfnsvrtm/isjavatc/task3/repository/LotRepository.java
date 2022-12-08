@@ -4,7 +4,7 @@ import com.github.mfnsvrtm.isjavatc.task3.dao.LotDao;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Category;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Lot;
 import com.github.mfnsvrtm.isjavatc.task3.entity.User;
-import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtils;
+import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -21,7 +21,7 @@ public class LotRepository extends Repository<Lot> implements LotDao {
 
     @Override
     public Optional<Lot> getById(int id) {
-        return SessionUtils.applyInTransaction(session -> {
+        return SessionUtil.applyInTransaction(session -> {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Lot> query = criteriaBuilder.createQuery(Lot.class);
 
@@ -34,7 +34,7 @@ public class LotRepository extends Repository<Lot> implements LotDao {
 
     @Override
     public List<Lot> getByUser(User user) {
-        return SessionUtils.applyInTransaction(session ->
+        return SessionUtil.applyInTransaction(session ->
                 session.createQuery("FROM Lot WHERE item.seller.id = :id", Lot.class)
                         .setParameter("id", user.getId())
                         .getResultList()
@@ -43,7 +43,7 @@ public class LotRepository extends Repository<Lot> implements LotDao {
 
     @Override
     public List<Lot> getByCategory(Category category) {
-        return SessionUtils.applyInTransaction(session ->
+        return SessionUtil.applyInTransaction(session ->
                 session.createQuery("FROM Lot WHERE item.category.id = :id", Lot.class)
                         .setParameter("id", category.getId())
                         .getResultList()

@@ -1,6 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.task3.repository;
 
-import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtils;
+import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 abstract class Repository<Entity> {
     protected List<Entity> getAll(Class<Entity> entityClass) {
-        return SessionUtils.applyInTransaction(session -> {
+        return SessionUtil.applyInTransaction(session -> {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Entity> query = criteriaBuilder.createQuery(entityClass);
 
@@ -21,7 +21,7 @@ abstract class Repository<Entity> {
     }
 
     protected Optional<Entity> getById(int id, Class<Entity> entityClass) {
-        return SessionUtils.applyInTransaction(session -> {
+        return SessionUtil.applyInTransaction(session -> {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Entity> query = criteriaBuilder.createQuery(entityClass);
 

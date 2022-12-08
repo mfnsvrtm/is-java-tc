@@ -3,7 +3,7 @@ package com.github.mfnsvrtm.isjavatc.task3.repository;
 import com.github.mfnsvrtm.isjavatc.task3.dao.ItemDao;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Item;
 import com.github.mfnsvrtm.isjavatc.task3.entity.User;
-import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtils;
+import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,7 +22,7 @@ public class ItemRepository extends Repository<Item> implements ItemDao {
 
     @Override
     public List<Item> getByUser(User user) {
-        return SessionUtils.applyInTransaction(session ->
+        return SessionUtil.applyInTransaction(session ->
                 session.createQuery("FROM Item WHERE seller.id = :id", Item.class)
                         .setParameter("id", user.getId())
                         .getResultList()
@@ -31,7 +31,7 @@ public class ItemRepository extends Repository<Item> implements ItemDao {
 
     @Override
     public void updateDescription(Item item, String newDescription) {
-        SessionUtils.executeInTransaction(session ->
+        SessionUtil.executeInTransaction(session ->
                 session.createQuery("UPDATE Item SET description = :description WHERE id = :id")
                         .setParameter("description", newDescription)
                         .setParameter("id", item.getId())
@@ -41,7 +41,7 @@ public class ItemRepository extends Repository<Item> implements ItemDao {
 
     @Override
     public void updateName(Item item, String newName) {
-        SessionUtils.executeInTransaction(session ->
+        SessionUtil.executeInTransaction(session ->
                 session.createQuery("UPDATE Item SET name = :name WHERE id = :id")
                         .setParameter("name", newName)
                         .setParameter("id", item.getId())
