@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.task3.repository;
+package com.github.mfnsvrtm.isjavatc.task3.dao.repository;
 
 import com.github.mfnsvrtm.isjavatc.task3.dao.LotDao;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Category;

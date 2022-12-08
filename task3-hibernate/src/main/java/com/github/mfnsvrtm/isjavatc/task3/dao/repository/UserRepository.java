@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.task3.repository;
+package com.github.mfnsvrtm.isjavatc.task3.dao.repository;
 
 import com.github.mfnsvrtm.isjavatc.task3.dao.UserDao;
 import com.github.mfnsvrtm.isjavatc.task3.entity.User;

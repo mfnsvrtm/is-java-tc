@@ -1,11 +1,11 @@
 package com.github.mfnsvrtm.isjavatc.task3;
 
 import com.github.mfnsvrtm.isjavatc.task3.dao.*;
+import com.github.mfnsvrtm.isjavatc.task3.dao.repository.*;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Category;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Item;
 import com.github.mfnsvrtm.isjavatc.task3.entity.Lot;
 import com.github.mfnsvrtm.isjavatc.task3.entity.User;
-import com.github.mfnsvrtm.isjavatc.task3.repository.*;
 import org.testng.annotations.Test;
 
 public class DaoTest {
