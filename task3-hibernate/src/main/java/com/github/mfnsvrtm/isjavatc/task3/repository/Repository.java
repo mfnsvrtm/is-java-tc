@@ -1,5 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.task3.repository;
 
+import com.github.mfnsvrtm.isjavatc.task3.dao.Dao;
 import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -8,7 +9,23 @@ import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-abstract class Repository<Entity> {
+abstract class Repository<Entity> implements Dao<Entity> {
+
+    @Override
+    public void create(Entity entity) {
+        SessionUtil.executeInTransaction(session -> session.persist(entity));
+    }
+
+    @Override
+    public void update(Entity entity) {
+        SessionUtil.executeInTransaction(session -> session.merge(entity));
+    }
+
+    @Override
+    public void delete(Entity entity) {
+        SessionUtil.executeInTransaction(session -> session.remove(entity));
+    }
+
     protected List<Entity> getAll(Class<Entity> entityClass) {
         return SessionUtil.applyInTransaction(session -> {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();

@@ -1,26 +1,18 @@
 package com.github.mfnsvrtm.isjavatc.task3.dao;
 
-import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
-
 import java.util.List;
 import java.util.Optional;
 
-interface Dao<Entity> {
+public interface Dao<Entity> {
 
     List<Entity> getAll();
 
     Optional<Entity> getById(int id);
 
-    default void create(Entity entity) {
-        SessionUtil.executeInTransaction(session -> session.persist(entity));
-    }
+    void create(Entity entity);
 
-    default void update(Entity entity) {
-        SessionUtil.executeInTransaction(session -> session.merge(entity));
-    }
+    void update(Entity entity);
 
-    default void delete(Entity entity) {
-        SessionUtil.executeInTransaction(session -> session.remove(entity));
-    }
+    void delete(Entity entity);
 
 }
