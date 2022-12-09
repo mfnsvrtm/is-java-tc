@@ -8,7 +8,7 @@ import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import java.util.List;
 import java.util.Optional;
 
-public class PurchaseRepository extends Repository<Purchase> implements PurchaseDao {
+public class PurchaseRepository extends CommonRepository<Purchase> implements PurchaseDao {
 
     @Override
     public List<Purchase> getAll() {

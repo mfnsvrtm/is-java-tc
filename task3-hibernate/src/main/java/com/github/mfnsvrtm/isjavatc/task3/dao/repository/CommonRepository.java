@@ -9,7 +9,7 @@ import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-abstract class Repository<Entity> implements Dao<Entity> {
+abstract class CommonRepository<Entity> implements Dao<Entity> {
 
     @Override
     public void create(Entity entity) {

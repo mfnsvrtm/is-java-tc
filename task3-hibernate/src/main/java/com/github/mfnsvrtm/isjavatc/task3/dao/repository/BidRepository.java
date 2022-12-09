@@ -9,7 +9,7 @@ import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import java.util.List;
 import java.util.Optional;
 
-public class BidRepository extends Repository<Bid> implements BidDao {
+public class BidRepository extends CommonRepository<Bid> implements BidDao {
 
     @Override
     public List<Bid> getAll() {

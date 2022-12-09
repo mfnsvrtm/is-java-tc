@@ -6,7 +6,7 @@ import com.github.mfnsvrtm.isjavatc.task3.entity.Address;
 import java.util.List;
 import java.util.Optional;
 
-public class AddressRepository extends Repository<Address> implements AddressDao {
+public class AddressRepository extends CommonRepository<Address> implements AddressDao {
 
     @Override
     public List<Address> getAll() {

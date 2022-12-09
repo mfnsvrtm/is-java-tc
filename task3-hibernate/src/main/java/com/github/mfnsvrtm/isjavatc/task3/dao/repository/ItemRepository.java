@@ -8,7 +8,7 @@ import com.github.mfnsvrtm.isjavatc.task3.util.SessionUtil;
 import java.util.List;
 import java.util.Optional;
 
-public class ItemRepository extends Repository<Item> implements ItemDao {
+public class ItemRepository extends CommonRepository<Item> implements ItemDao {
 
     @Override
     public List<Item> getAll() {

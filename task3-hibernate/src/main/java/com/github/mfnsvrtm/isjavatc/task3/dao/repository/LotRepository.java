@@ -12,7 +12,7 @@ import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
-public class LotRepository extends Repository<Lot> implements LotDao {
+public class LotRepository extends CommonRepository<Lot> implements LotDao {
 
     @Override
     public List<Lot> getAll() {

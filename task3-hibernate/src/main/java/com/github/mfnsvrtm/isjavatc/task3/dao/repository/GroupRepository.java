@@ -6,7 +6,7 @@ import com.github.mfnsvrtm.isjavatc.task3.entity.Group;
 import java.util.List;
 import java.util.Optional;
 
-public class GroupRepository extends Repository<Group> implements GroupDao {
+public class GroupRepository extends CommonRepository<Group> implements GroupDao {
 
     @Override
     public List<Group> getAll() {

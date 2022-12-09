@@ -6,7 +6,7 @@ import com.github.mfnsvrtm.isjavatc.task3.entity.User;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepository extends Repository<User> implements UserDao {
+public class UserRepository extends CommonRepository<User> implements UserDao {
 
     @Override
     public List<User> getAll() {
