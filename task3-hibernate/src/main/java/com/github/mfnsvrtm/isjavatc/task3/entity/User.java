@@ -40,6 +40,7 @@ public class User {
     @NotNull
     @Size(max = 30)
     private String phoneNumber;
+
     @NotNull
     @ManyToOne
     private Address address;

@@ -26,6 +26,7 @@ public class Item {
     @NotNull
     @Size(max = 50)
     private String condition;
+
     @ManyToOne
     private Category category;
     @NotNull

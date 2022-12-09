@@ -22,9 +22,6 @@ public class Purchase {
     @NotNull
     private Integer id;
     @NotNull
-    @OneToOne
-    private Bid bid;
-    @NotNull
     private BigDecimal amount;
     @NotNull
     @Size(max = 30)
@@ -32,5 +29,9 @@ public class Purchase {
     @NotNull
     @Size(max = 100)
     private String bankAccountNumber;
+
+    @NotNull
+    @OneToOne
+    private Bid bid;
 
 }

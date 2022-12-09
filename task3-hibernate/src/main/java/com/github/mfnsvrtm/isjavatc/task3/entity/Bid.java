@@ -22,6 +22,13 @@ public class Bid {
     @NotNull
     private Integer id;
     @NotNull
+    private BigDecimal amount;
+    @NotNull
+    private OffsetDateTime time;
+    @NotNull
+    private Boolean retracted;
+
+    @NotNull
     @ManyToOne
     @ToString.Exclude
     private Lot lot;
@@ -29,12 +36,6 @@ public class Bid {
     @ManyToOne
     @ToString.Exclude
     private User bidder;
-    @NotNull
-    private BigDecimal amount;
-    @NotNull
-    private OffsetDateTime time;
-    @NotNull
-    private Boolean retracted;
 
     @ToString.Include(name = "lot.id")
     private int lotToString() {

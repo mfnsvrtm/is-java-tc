@@ -23,9 +23,6 @@ public class Lot {
     @NotNull
     private Integer id;
     @NotNull
-    @OneToOne
-    private Item item;
-    @NotNull
     private BigDecimal startingPrice;
     @NotNull
     private BigDecimal minimumBidIncrement;
@@ -33,6 +30,10 @@ public class Lot {
     private OffsetDateTime auctionStart;
     @NotNull
     private OffsetDateTime auctionEnd;
+
+    @NotNull
+    @OneToOne
+    private Item item;
     @OneToOne
     @ToString.Exclude
     private Bid winningBid;
