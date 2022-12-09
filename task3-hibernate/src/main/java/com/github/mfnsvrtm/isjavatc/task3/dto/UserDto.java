@@ -9,7 +9,13 @@ import java.util.List;
 @Builder
 public class UserDto {
 
-    String displayName;
+    String username;
+    String password;
+    String firstName;
+    String lastName;
+    String email;
+    String phoneNumber;
+    String address;
     List<String> groups;
 
 }
