@@ -20,7 +20,8 @@ public class Lot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @NotNull
+    private Integer id;
     @NotNull
     @OneToOne
     private Item item;

@@ -13,6 +13,6 @@ public class BidDto {
     UserDto user;
     BigDecimal amount;
     OffsetDateTime time;
-    boolean retracted;
+    Boolean retracted;
 
 }

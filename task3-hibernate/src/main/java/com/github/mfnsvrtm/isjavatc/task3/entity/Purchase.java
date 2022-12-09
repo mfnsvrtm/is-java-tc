@@ -19,7 +19,8 @@ public class Purchase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @NotNull
+    private Integer id;
     @NotNull
     @OneToOne
     private Bid bid;

@@ -19,7 +19,8 @@ public class Bid {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @NotNull
+    private Integer id;
     @NotNull
     @ManyToOne
     @ToString.Exclude
@@ -33,7 +34,7 @@ public class Bid {
     @NotNull
     private OffsetDateTime time;
     @NotNull
-    private boolean retracted;
+    private Boolean retracted;
 
     @ToString.Include(name = "lot.id")
     private int lotToString() {

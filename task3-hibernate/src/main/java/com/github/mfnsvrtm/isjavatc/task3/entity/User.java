@@ -20,7 +20,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @NotNull
+    private Integer id;
     @NotNull
     @Size(max = 30)
     private String username;
