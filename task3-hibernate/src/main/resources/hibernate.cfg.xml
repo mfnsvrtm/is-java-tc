@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.url">jdbc:postgresql://localhost:5432/auction</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">password</property>
+        <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+        <property name="hibernate.physical_naming_strategy">org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy</property>
+        <property name="hbm2ddl.auto">validate</property>
+
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Address"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Bid"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Category"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Group"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Item"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Lot"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.Purchase"/>
+        <mapping class="com.github.mfnsvrtm.isjavatc.task3.entity.User"/>
+    </session-factory>
+</hibernate-configuration>
