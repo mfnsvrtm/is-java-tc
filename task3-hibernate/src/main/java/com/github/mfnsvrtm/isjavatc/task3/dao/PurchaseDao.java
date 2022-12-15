@@ -1,12 +1,12 @@
 package com.github.mfnsvrtm.isjavatc.task3.dao;
 
 import com.github.mfnsvrtm.isjavatc.task3.entity.Purchase;
-import com.github.mfnsvrtm.isjavatc.task3.entity.User;
+import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
 
-public interface PurchaseDao extends Dao<Purchase> {
+public interface PurchaseDao extends ListCrudRepository<Purchase, Integer> {
 
-    List<Purchase> getByUser(User user);
+    List<Purchase> findByBidBidderId(Integer bidderId);
 
 }

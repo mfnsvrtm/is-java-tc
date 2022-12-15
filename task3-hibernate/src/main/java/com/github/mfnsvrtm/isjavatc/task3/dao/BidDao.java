@@ -1,15 +1,14 @@
 package com.github.mfnsvrtm.isjavatc.task3.dao;
 
 import com.github.mfnsvrtm.isjavatc.task3.entity.Bid;
-import com.github.mfnsvrtm.isjavatc.task3.entity.Lot;
-import com.github.mfnsvrtm.isjavatc.task3.entity.User;
+import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.List;
 
-public interface BidDao extends Dao<Bid> {
+public interface BidDao extends ListCrudRepository<Bid, Integer> {
 
-    List<Bid> getByUser(User user);
+    List<Bid> findByBidderId(Integer bidderId);
 
-    List<Bid> getByLot(Lot lot);
+    List<Bid> findByLotId(Integer lotId);
 
 }
