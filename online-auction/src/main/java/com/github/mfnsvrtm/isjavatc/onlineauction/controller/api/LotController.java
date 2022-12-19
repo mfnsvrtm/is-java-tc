@@ -1,5 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller.api;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +30,12 @@ public class LotController {
     }
 
     @DeleteMapping("/api/lots/{lotId}")
-    public String deleteLot(@PathVariable int lotId) {
-        return "deleting lot %d".formatted(lotId);
+    public String deleteLotUser(@PathVariable int lotId, HttpServletRequest request) {
+        if (request.isUserInRole("ADMINISTRATOR")) {
+            return "deleting lot %d as admin".formatted(lotId);
+        } else {
+            return "attempting to delete lot %d as non-admin".formatted(lotId);
+        }
     }
 
 }
