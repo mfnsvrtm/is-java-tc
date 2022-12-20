@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.controller.api;
+package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
 import org.springframework.web.bind.annotation.*;
 
