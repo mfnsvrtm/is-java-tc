@@ -24,7 +24,7 @@ public class SecurityConfig {
 
         httpSecurity.authorizeHttpRequests(customizer -> {
             customizer.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
-            customizer.requestMatchers(HttpMethod.POST, "/api/users/register").permitAll();
+            customizer.requestMatchers(HttpMethod.POST, "/api/users").permitAll();
             customizer.requestMatchers(HttpMethod.GET, "/api/lots").permitAll();
             customizer.anyRequest().authenticated();
         });
