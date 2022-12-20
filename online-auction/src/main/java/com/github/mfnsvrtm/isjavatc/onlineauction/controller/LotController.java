@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class LotController {
 
+    @GetMapping("/api/lots/{id}")
+    public String getLotById(@PathVariable int id) {
+        return "lot %d".formatted(id);
+    }
+
     @GetMapping("/api/lots")
     public String getAllLots(
         @RequestParam(required = false) Integer categoryId,
