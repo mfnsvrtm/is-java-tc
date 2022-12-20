@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class BidController {
 
-    @PostMapping("/api/lots/{lotId}/bids")
-    public String placeBid(@PathVariable int lotId) {
-        return "placing bid on lot %d".formatted(lotId);
+    @PostMapping("/api/lots/{id}/bids")
+    public String createBidForLotId(@PathVariable int id) {
+        return "creating bid for lot %d".formatted(id);
     }
 
-    @DeleteMapping("/api/bids/{bidId}")
-    public String retractBid(@PathVariable int bidId) {
-        return "retracting bid %d".formatted(bidId);
+    @DeleteMapping("/api/bids/{id}")
+    public String deleteBidById(@PathVariable int id) {
+        return "deleting bid %d".formatted(id);
     }
 
 }

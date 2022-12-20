@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 public class LotController {
 
     @GetMapping("/api/lots")
-    public String listLots(
+    public String getAllLots(
         @RequestParam(required = false) Integer categoryId,
         @RequestParam(required = false) String name
     ) {
@@ -15,7 +15,7 @@ public class LotController {
     }
 
     @GetMapping("/api/users/me/lots")
-    public String listLotsByCurrentUser() {
+    public String getLotsByCurrentUser() {
         return "lots by current user";
     }
 
@@ -24,17 +24,17 @@ public class LotController {
         return "creating lot";
     }
 
-    @PatchMapping("/api/lots/{lotId}")
-    public String updateLot(@PathVariable int lotId) {
-        return "updating lot %d".formatted(lotId);
+    @PatchMapping("/api/lots/{id}")
+    public String updateLotById(@PathVariable int id) {
+        return "updating lot %d".formatted(id);
     }
 
-    @DeleteMapping("/api/lots/{lotId}")
-    public String deleteLotUser(@PathVariable int lotId, HttpServletRequest request) {
+    @DeleteMapping("/api/lots/{id}")
+    public String deleteLotById(@PathVariable int id, HttpServletRequest request) {
         if (request.isUserInRole("ADMINISTRATOR")) {
-            return "deleting lot %d as admin".formatted(lotId);
+            return "deleting lot %d as admin".formatted(id);
         } else {
-            return "attempting to delete lot %d as non-admin".formatted(lotId);
+            return "attempting to delete lot %d as non-admin".formatted(id);
         }
     }
 

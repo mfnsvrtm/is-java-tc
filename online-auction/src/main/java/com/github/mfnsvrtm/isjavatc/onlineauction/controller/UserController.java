@@ -8,25 +8,25 @@ public class UserController {
 
     @GetMapping("/api/users")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String listUsers() {
+    public String getAllUsers() {
         return "users";
     }
 
-    @GetMapping("/api/users/{userId}")
+    @GetMapping("/api/users/{id}")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String getUser(@PathVariable int userId) {
-        return "user %d".formatted(userId);
+    public String getUserById(@PathVariable int id) {
+        return "user %d".formatted(id);
     }
 
-    @PostMapping("/api/users/register")
-    public String registerUser() {
-        return "registering user";
+    @PostMapping("/api/users")
+    public String createUser() {
+        return "creating user";
     }
 
-    @DeleteMapping("/api/users/{userId}")
+    @DeleteMapping("/api/users/{id}")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String deleteUser(@PathVariable int userId) {
-        return "deleting user %d".formatted(userId);
+    public String deleteUserById(@PathVariable int id) {
+        return "deleting user %d".formatted(id);
     }
 
 }
