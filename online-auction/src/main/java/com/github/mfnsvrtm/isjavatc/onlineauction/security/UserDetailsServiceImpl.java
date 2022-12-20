@@ -1,6 +1,7 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.security;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
+import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,11 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userDao.findUserByUsername(username).get();
+        User userEntity = userDao.findUserByUsername(username).get();
         return new org.springframework.security.core.userdetails.User(
-            user.getUsername(),
-            user.getPassword(),
-            user.getGroups().stream().map(RoleAuthority::new).toList()
+            userEntity.getUsername(),
+            userEntity.getPassword(),
+            userEntity.getGroups().stream().map(RoleAuthority::new).toList()
         );
     }
 
