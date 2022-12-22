@@ -1,32 +1,42 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.UserCreationDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.UserDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.service.UserService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class UserController {
+
+    private final UserService userService;
 
     @GetMapping("/api/users")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String getAllUsers() {
-        return "users";
+    public List<UserDto> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/api/users/{id}")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String getUserById(@PathVariable int id) {
-        return "user %d".formatted(id);
+    public UserDto getUserById(@PathVariable int id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping("/api/users")
-    public String createUser() {
-        return "creating user";
+    public UserDto createUser(@Valid @RequestBody UserCreationDto userCreationDto) {
+        return userService.createUser(userCreationDto);
     }
 
     @DeleteMapping("/api/users/{id}")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String deleteUserById(@PathVariable int id) {
-        return "deleting user %d".formatted(id);
+    public void deleteUserById(@PathVariable int id) {
+        userService.deleteUserById(id);
     }
 
 }

@@ -3,10 +3,7 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,17 +13,18 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
     @NotNull
     @Size(max = 30)
+    @Column(unique = true)
     private String username;
     @NotNull
-    @Size(max = 30)
+    @Size(max = 60)
     private String password;
     @NotNull
     @Size(max = 30)
@@ -42,7 +40,7 @@ public class User {
     private String phoneNumber;
 
     @NotNull
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Address address;
     @ManyToMany
     @JoinTable(

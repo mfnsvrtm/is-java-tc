@@ -49,3 +49,13 @@ VALUES
     (4, 0, 1, 130.0, '2022-11-06 12:07:31+04');
 
 UPDATE lot SET winning_bid_id = 4 WHERE id = 0;
+
+-- https://wiki.postgresql.org/wiki/Fixing_Sequences
+SELECT SETVAL('address_id_seq', (SELECT (MAX(id) + 1) from address), FALSE);
+SELECT SETVAL('bid_id_seq', (SELECT (MAX(id) + 1) from bid), FALSE);
+SELECT SETVAL('category_id_seq', (SELECT (MAX(id) + 1) from category), FALSE);
+SELECT SETVAL('group_id_seq', (SELECT (MAX(id) + 1) from "group"), FALSE);
+SELECT SETVAL('item_id_seq', (SELECT (MAX(id) + 1) from item), FALSE);
+SELECT SETVAL('lot_id_seq', (SELECT (MAX(id) + 1) from lot), FALSE);
+SELECT SETVAL('purchase_id_seq', (SELECT (MAX(id) + 1) from purchase), FALSE);
+SELECT SETVAL('user_id_seq', (SELECT (MAX(id) + 1) from "user"), FALSE);

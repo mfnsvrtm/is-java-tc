@@ -2,24 +2,22 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Bid {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
     @NotNull
     private BigDecimal amount;
@@ -45,6 +43,15 @@ public class Bid {
     @ToString.Include(name = "bidder.id")
     private int bidderToString() {
         return getBidder().getId();
+    }
+
+    public Bid(BigDecimal amount, Lot lot, User bidder) {
+        this.amount = amount;
+        this.time = OffsetDateTime.now(ZoneOffset.UTC);
+        this.retracted = false;
+
+        this.lot = lot;
+        this.bidder = bidder;
     }
 
 }

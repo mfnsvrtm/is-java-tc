@@ -1,38 +1,51 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.BidCreationDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.service.BidService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class BidController {
 
+    private final BidService bidService;
+
     @GetMapping("/api/bids/{id}")
-    public String getBidById(@PathVariable int id) {
-        return "bid %d".formatted(id);
+    public BidDto getBidById(@PathVariable int id) {
+        return bidService.getBidById(id);
     }
 
     @GetMapping("/api/lots/{id}/bids")
-    public String getBidsByLotId(@PathVariable int id) {
-        return "bids for lot %d".formatted(id);
+    public List<BidDto> getBidsByLotId(@PathVariable int id) {
+        return bidService.getBidsByLotId(id);
     }
 
     @GetMapping("/api/users/{id}/bids")
-    public String getBidsByUserId(@PathVariable int id) {
-        return "bids for user %d".formatted(id);
+    public List<BidDto> getBidsByUserId(@PathVariable int id) {
+        return bidService.getBidsByUserId(id);
     }
 
     @GetMapping("/api/users/me/bids")
-    public String getBidsByCurrentUser() {
-        return "bids by current user";
+    public List<BidDto> getBidsByCurrentUser(Authentication authentication) {
+        return bidService.getBidsByCurrentUser((UserDetails) authentication.getPrincipal());
     }
 
     @PostMapping("/api/lots/{id}/bids")
-    public String createBidForLotId(@PathVariable int id) {
-        return "creating bid for lot %d".formatted(id);
+    public BidDto createBidForLotId(@PathVariable int id, @Valid @RequestBody BidCreationDto bidCreationDto,
+                                  Authentication authentication) {
+        return bidService.placeBid(id, bidCreationDto, (UserDetails) authentication.getPrincipal());
     }
 
     @DeleteMapping("/api/bids/{id}")
-    public String deleteBidById(@PathVariable int id) {
-        return "deleting bid %d".formatted(id);
+    public void deleteBidById(@PathVariable int id, Authentication authentication) {
+        bidService.retractBid(id, (UserDetails) authentication.getPrincipal());
     }
 
 }

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface UserDao extends ListCrudRepository<User, Integer> {
 
-    Optional<User> findUserByUsername(String username);
+    Optional<User> findByUsername(String username);
 
 }

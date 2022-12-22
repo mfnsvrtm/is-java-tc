@@ -2,10 +2,7 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
@@ -16,11 +13,11 @@ import java.util.List;
 @Setter
 @ToString
 @NoArgsConstructor
+@AllArgsConstructor
 public class Lot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
     @NotNull
     private BigDecimal startingPrice;
@@ -32,19 +29,23 @@ public class Lot {
     private OffsetDateTime auctionEnd;
 
     @NotNull
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Item item;
     @OneToOne
     @ToString.Exclude
     private Bid winningBid;
 
-    @OneToMany(mappedBy = "lot")
+    @OneToMany(mappedBy = "lot", cascade = CascadeType.REMOVE)
     @ToString.Exclude
     private List<Bid> bids;
 
     @ToString.Include(name = "winningBid.id")
     private int winningBidToString() {
         return getWinningBid().getId();
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return winningBid != null ? winningBid.getAmount() : startingPrice;
     }
 
 }

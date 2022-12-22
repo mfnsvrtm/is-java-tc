@@ -26,6 +26,7 @@ public class SecurityConfig {
             customizer.requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll();
             customizer.requestMatchers(HttpMethod.POST, "/api/users").permitAll();
             customizer.requestMatchers(HttpMethod.GET, "/api/lots").permitAll();
+            customizer.requestMatchers(HttpMethod.GET, "/api/lots/{id:\\d+}").permitAll();
             customizer.anyRequest().authenticated();
         });
 

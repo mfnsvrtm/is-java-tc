@@ -1,46 +1,56 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.LotCreationDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.LotSummaryDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.update.LotUpdateDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.service.LotService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class LotController {
 
+    private final LotService lotService;
+
     @GetMapping("/api/lots/{id}")
-    public String getLotById(@PathVariable int id) {
-        return "lot %d".formatted(id);
+    public LotDto getLotById(@PathVariable int id) {
+        return lotService.getLotById(id);
     }
 
     @GetMapping("/api/lots")
-    public String getAllLots(
+    public List<LotSummaryDto> searchLots(
         @RequestParam(required = false) Integer categoryId,
         @RequestParam(required = false) String name
     ) {
-        return "lots";
+        return lotService.searchLots(categoryId, name);
     }
 
     @GetMapping("/api/users/me/lots")
-    public String getLotsByCurrentUser() {
-        return "lots by current user";
+    public List<LotSummaryDto> getLotsByCurrentUser(Authentication authentication) {
+        return lotService.getLotsByCurrentUser((UserDetails) authentication.getPrincipal());
     }
 
     @PostMapping("/api/lots")
-    public String createLot() {
-        return "creating lot";
+    public LotDto createLot(@Valid @RequestBody LotCreationDto lotCreationDto, Authentication authentication) {
+        return lotService.createLot(lotCreationDto, (UserDetails) authentication.getPrincipal());
     }
 
     @PatchMapping("/api/lots/{id}")
-    public String updateLotById(@PathVariable int id) {
-        return "updating lot %d".formatted(id);
+    public LotDto updateLotById(@PathVariable int id, @Valid @RequestBody LotUpdateDto lotUpdateDto,
+                              Authentication authentication) {
+        return lotService.updateLot(id, lotUpdateDto, (UserDetails) authentication.getPrincipal());
     }
 
     @DeleteMapping("/api/lots/{id}")
-    public String deleteLotById(@PathVariable int id, HttpServletRequest request) {
-        if (request.isUserInRole("ADMINISTRATOR")) {
-            return "deleting lot %d as admin".formatted(id);
-        } else {
-            return "attempting to delete lot %d as non-admin".formatted(id);
-        }
+    public void deleteLotById(@PathVariable int id, Authentication authentication) {
+        lotService.removeLot(id, (UserDetails) authentication.getPrincipal());
     }
 
 }
