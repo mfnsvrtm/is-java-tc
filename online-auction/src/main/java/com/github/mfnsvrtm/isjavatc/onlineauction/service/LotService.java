@@ -27,7 +27,7 @@ public class LotService {
 
     private final LotMapper lotMapper;
 
-    public List<LotSummaryDto> searchLots(Integer categoryId, String name) {
+    public List<LotSummaryDto> getLots(Integer categoryId, String name) {
         return lotDao.findByItemCategoryIdAndItemName(categoryId, name).stream().map(lotMapper::toPreviewDto).toList();
     }
 

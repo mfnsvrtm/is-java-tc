@@ -25,11 +25,11 @@ public class LotController {
     }
 
     @GetMapping("/api/lots")
-    public List<LotSummaryDto> searchLots(
+    public List<LotSummaryDto> getLots(
         @RequestParam(required = false) Integer categoryId,
         @RequestParam(required = false) String name
     ) {
-        return lotService.searchLots(categoryId, name);
+        return lotService.getLots(categoryId, name);
     }
 
     @GetMapping("/api/users/me/lots")
