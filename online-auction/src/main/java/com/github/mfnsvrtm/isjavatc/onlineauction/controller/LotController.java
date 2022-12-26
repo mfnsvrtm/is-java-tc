@@ -1,9 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.LotCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.LotSummaryDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.update.LotUpdateDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.LotService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +22,7 @@ public class LotController {
     }
 
     @GetMapping("/api/lots")
-    public List<LotSummaryDto> getLots(
+    public List<LotDto> getLots(
         @RequestParam(required = false) Integer categoryId,
         @RequestParam(required = false) String name
     ) {
@@ -33,19 +30,18 @@ public class LotController {
     }
 
     @GetMapping("/api/users/me/lots")
-    public List<LotSummaryDto> getLotsByCurrentUser(Authentication authentication) {
+    public List<LotDto> getLotsByCurrentUser(Authentication authentication) {
         return lotService.getLotsByCurrentUser((UserDetails) authentication.getPrincipal());
     }
 
     @PostMapping("/api/lots")
-    public LotDto createLot(@Valid @RequestBody LotCreationDto lotCreationDto, Authentication authentication) {
-        return lotService.createLot(lotCreationDto, (UserDetails) authentication.getPrincipal());
+    public LotDto createLot(@RequestBody LotDto lotDto, Authentication authentication) {
+        return lotService.createLot(lotDto, (UserDetails) authentication.getPrincipal());
     }
 
     @PatchMapping("/api/lots/{id}")
-    public LotDto updateLotById(@PathVariable int id, @Valid @RequestBody LotUpdateDto lotUpdateDto,
-                              Authentication authentication) {
-        return lotService.updateLot(id, lotUpdateDto, (UserDetails) authentication.getPrincipal());
+    public LotDto updateLotById(@PathVariable int id, @RequestBody LotDto lotDto, Authentication authentication) {
+        return lotService.updateLot(id, lotDto, (UserDetails) authentication.getPrincipal());
     }
 
     @DeleteMapping("/api/lots/{id}")

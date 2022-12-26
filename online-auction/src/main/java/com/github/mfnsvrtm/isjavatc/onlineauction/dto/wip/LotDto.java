@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +12,15 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class LotDto {
-
+    
     Integer id;
-    ItemDto item;
     BigDecimal startingPrice;
     BigDecimal minimumBidIncrement;
     OffsetDateTime auctionStart;
     OffsetDateTime auctionEnd;
-    BigDecimal currentPrice;
-    List<BidDto> topBids;
 
+    ItemDto item;
+    BidDto winningBid;
+    List<BidDto> bids;
+    
 }

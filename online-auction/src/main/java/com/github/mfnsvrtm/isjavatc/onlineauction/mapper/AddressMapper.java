@@ -1,11 +1,19 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.mapper;
 
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.AddressDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Address;
+import org.mapstruct.*;
 
-public interface AddressMapper {
+@Named("AddressMapper")
+@Mapper(componentModel = "spring")
+public interface AddressMapper extends GenericEntityMapper<Address, AddressDto> {
 
-    String toString(Address address);
+    @Override
+    @Named("toDto")
+    AddressDto toDto(Address entity);
 
-    Address toAddress(String address);
+    @Override
+    @Named("toEntity")
+    Address toEntity(AddressDto dto);
 
 }

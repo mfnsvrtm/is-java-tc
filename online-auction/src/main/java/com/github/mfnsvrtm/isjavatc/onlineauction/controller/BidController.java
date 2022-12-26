@@ -1,7 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.BidCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.BidService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,9 +37,8 @@ public class BidController {
     }
 
     @PostMapping("/api/lots/{id}/bids")
-    public BidDto createBidForLotId(@PathVariable int id, @Valid @RequestBody BidCreationDto bidCreationDto,
-                                  Authentication authentication) {
-        return bidService.placeBid(id, bidCreationDto, (UserDetails) authentication.getPrincipal());
+    public BidDto createBidForLotId(@PathVariable int id, @RequestBody BidDto bidDto, Authentication authentication) {
+        return bidService.placeBid(id, bidDto, (UserDetails) authentication.getPrincipal());
     }
 
     @DeleteMapping("/api/bids/{id}")

@@ -1,6 +1,5 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.UserSummaryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -14,7 +13,9 @@ public class ItemDto {
     String name;
     String description;
     String condition;
-    String category;
-    UserSummaryDto seller;
+
+    CategoryDto category;
+    UserDto seller;
+    LotDto lot;
 
 }

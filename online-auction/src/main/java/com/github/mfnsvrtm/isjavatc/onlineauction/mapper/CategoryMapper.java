@@ -1,11 +1,19 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.mapper;
 
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.CategoryDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Category;
+import org.mapstruct.*;
 
-public interface CategoryMapper {
+@Named("CategoryMapper")
+@Mapper(componentModel = "spring")
+public interface CategoryMapper extends GenericEntityMapper<Category, CategoryDto> {
 
-    String toString(Category category);
+    @Override
+    @Named("toDto")
+    CategoryDto toDto(Category entity);
 
-    Category toCategory(String category);
+    @Override
+    @Named("toEntity")
+    Category toEntity(CategoryDto dto);
 
 }

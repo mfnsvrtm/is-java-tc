@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,14 +10,18 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class UserDto {
-
+    
     Integer id;
     String username;
+    String password;
     String firstName;
     String lastName;
     String email;
     String phoneNumber;
-    String address;
-    List<String> groups;
+    
+    AddressDto address;
+    List<GroupDto> groups;
+    List<ItemDto> items;
+    List<BidDto> bids;
 
 }

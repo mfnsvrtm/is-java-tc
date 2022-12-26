@@ -1,6 +1,5 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.ItemSummaryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -13,8 +12,10 @@ import java.math.BigDecimal;
 public class PurchaseDto {
 
     Integer id;
-    ItemSummaryDto item;
     BigDecimal amount;
     String paymentMethod;
+    String bankAccountNumber;
 
+    BidDto bid;
+    
 }

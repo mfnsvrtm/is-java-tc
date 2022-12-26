@@ -1,8 +1,7 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.BidCreationDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.BidMapper;
@@ -42,9 +41,9 @@ public class BidService {
     }
 
     @Transactional
-    public BidDto placeBid(int lotId, BidCreationDto bidCreationDto, UserDetails userDetails) {
+    public BidDto placeBid(int lotId, BidDto bidDto, UserDetails userDetails) {
         Lot lot = lotDao.findById(lotId).get();
-        BigDecimal amount = bidCreationDto.getAmount();
+        BigDecimal amount = bidDto.getAmount();
 
         if (!isBidAmountSufficient(amount, lot)) {
             throw new AuctionException("Bid placement was cancelled. Bid amount does not cover lot's minimum bid increment.");

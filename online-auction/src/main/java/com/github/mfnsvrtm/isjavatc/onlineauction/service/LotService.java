@@ -1,10 +1,8 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.LotCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.LotSummaryDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.update.LotUpdateDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.ItemDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.LotMapper;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,36 +26,34 @@ public class LotService {
 
     private final LotMapper lotMapper;
 
-    public List<LotSummaryDto> getLots(Integer categoryId, String name) {
-        return lotDao.findByItemCategoryIdAndItemName(categoryId, name).stream().map(lotMapper::toPreviewDto).toList();
+    public List<LotDto> getLots(Integer categoryId, String name) {
+        return lotDao.findByItemCategoryIdAndItemName(categoryId, name).stream().map(lotMapper::toDto).toList();
     }
 
     public LotDto getLotById(int id) {
-        List<Bid> topBids = bidDao.findTopBidsByLotId(id);
-        return lotMapper.toDto(lotDao.findById(id).get(), topBids);
+        // TODO: List<Bid> topBids = bidDao.findTopBidsByLotId(id);
+        return lotMapper.toDtoFull(lotDao.findById(id).get());
     }
 
-    public List<LotSummaryDto> getLotsByCurrentUser(UserDetails userDetails) {
+    public List<LotDto> getLotsByCurrentUser(UserDetails userDetails) {
         String username = userDetails.getUsername();
-        return lotDao.findByItemSellerUsername(username).stream().map(lotMapper::toPreviewDto).toList();
+        return lotDao.findByItemSellerUsername(username).stream().map(lotMapper::toDto).toList();
     }
 
-    public LotDto createLot(LotCreationDto lotCreationDto, UserDetails userDetails) {
+    public LotDto createLot(LotDto lotDto, UserDetails userDetails) {
         User user = userDao.findByUsername(userDetails.getUsername()).get();
 
-        Category category;
-        if (lotCreationDto.getCategoryId() == null) {
-            category = null;
-        } else {
-            category = categoryDao.findById(lotCreationDto.getCategoryId()).get();
+        Category category = null;
+        if (lotDto.getItem() != null && lotDto.getItem().getCategory() != null && lotDto.getItem().getCategory().getId() != null) {
+            category = categoryDao.findById(lotDto.getItem().getCategory().getId()).get();
         }
 
-        Lot lot = lotMapper.toLot(lotCreationDto);
+        Lot lot = lotMapper.toEntity(lotDto);
         lot.getItem().setSeller(user);
         lot.getItem().setCategory(category);
 
         Lot saved = lotDao.save(lot);
-        return lotMapper.toDto(saved, List.of());
+        return lotMapper.toDto(saved);
     }
 
     public void removeLot(int lotId, UserDetails userDetails) {
@@ -74,17 +71,21 @@ public class LotService {
     }
 
     @Transactional
-    public LotDto updateLot(int lotId, LotUpdateDto lotUpdateDto, UserDetails userDetails) {
+    public LotDto updateLot(int lotId, LotDto lotDto, UserDetails userDetails) {
         int itemId = itemDao.findByLotId(lotId).get().getId();
-        if (lotUpdateDto.getNewName() != null) {
-            itemDao.updateName(itemId, lotUpdateDto.getNewName());
-        }
-        if (lotUpdateDto.getNewDescription() != null) {
-            itemDao.updateDescription(itemId, lotUpdateDto.getNewDescription());
+
+        if (lotDto.getItem() != null) {
+            ItemDto item = lotDto.getItem();
+            if (item.getName() != null) {
+                itemDao.updateName(itemId, item.getName());
+            }
+            if (item.getDescription() != null) {
+                itemDao.updateDescription(itemId, item.getDescription());
+            }
         }
 
-        List<Bid> topBids = bidDao.findTopBidsByLotId(lotId);
-        return lotMapper.toDto(lotDao.findById(lotId).get(), topBids);
+        // TODO: List<Bid> topBids = bidDao.findTopBidsByLotId(lotId);
+        return lotMapper.toDto(lotDao.findById(lotId).get());
     }
 
     private boolean isAdministrator(UserDetails userDetails) {

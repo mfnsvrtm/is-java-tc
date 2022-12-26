@@ -1,6 +1,5 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.UserSummaryDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;
@@ -14,10 +13,11 @@ import java.time.OffsetDateTime;
 public class BidDto {
 
     Integer id;
-    UserSummaryDto bidder;
-    Integer lotId;
     BigDecimal amount;
     OffsetDateTime time;
     Boolean retracted;
+
+    LotDto lot;
+    UserDto bidder;
 
 }

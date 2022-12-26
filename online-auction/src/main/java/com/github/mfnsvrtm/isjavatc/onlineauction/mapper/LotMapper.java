@@ -1,27 +1,35 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.mapper;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.LotCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.summary.LotSummaryDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Bid;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Lot;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.*;
 
-import java.util.List;
+@Named("LotMapper")
+@Mapper(componentModel = "spring", uses = {ItemMapper.class, BidMapper.class})
+public interface LotMapper extends GenericEntityMapper<Lot, LotDto> {
 
-@Mapper(componentModel = "spring", uses = {AddressMapper.class, GroupMapper.class, CategoryMapper.class})
-public interface LotMapper {
+    @Override
+    @Named("toDto")
+    @Mapping(target = "item", qualifiedByName = {"ItemMapper", "toDto"})
+    @Mapping(target = "winningBid", qualifiedByName = {"BidMapper", "toDto"})
+    @Mapping(target = "bids", ignore = true)
+    LotDto toDto(Lot entity);
 
-    LotSummaryDto toPreviewDto(Lot lot);
+    @Override
+    @Named("toEntity")
+    @Mapping(target = "item", qualifiedByName = {"ItemMapper", "toEntity"})
+    @Mapping(target = "winningBid", qualifiedByName = {"BidMapper", "toEntity"})
+    @Mapping(target = "bids", qualifiedByName = {"BidMapper", "toEntity"})
+    Lot toEntity(LotDto dto);
 
-    LotDto toDto(Lot lot, List<Bid> topBids);
+    @Named("toDtoId")
+    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "id")
+    LotDto toDtoId(Lot entity);
 
-    @Mapping(target = "item.name", source = "name")
-    @Mapping(target = "item.description", source = "description")
-    @Mapping(target = "item.condition", source = "condition")
-    @Mapping(target = "item.category", ignore = true)
-    @Mapping(target = "item.seller", ignore = true)
-    Lot toLot(LotCreationDto lotCreationDto);
+    @Named("toDtoFull")
+    @InheritConfiguration(name = "toDto")
+    @Mapping(target = "bids", qualifiedByName = {"BidMapper", "toDto"})
+    LotDto toDtoFull(Lot entity);
 
 }

@@ -1,11 +1,19 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.mapper;
 
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.GroupDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Group;
+import org.mapstruct.*;
 
-public interface GroupMapper {
+@Named("GroupMapper")
+@Mapper(componentModel = "spring")
+public interface GroupMapper extends GenericEntityMapper<Group, GroupDto> {
 
-    String toString(Group group);
+    @Override
+    @Named("toDto")
+    GroupDto toDto(Group entity);
 
-    Group toGroup(String group);
+    @Override
+    @Named("toEntity")
+    Group toEntity(GroupDto dto);
 
 }

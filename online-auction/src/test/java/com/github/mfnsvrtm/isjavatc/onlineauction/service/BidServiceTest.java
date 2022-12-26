@@ -4,7 +4,7 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.TestData;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.BidDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.LotDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.BidCreationDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Bid;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Lot;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
@@ -52,7 +52,14 @@ public class BidServiceTest {
         when(lotDao.findById(lot1.getId())).thenReturn(Optional.of(lot1));
         when(userDao.findByUsername(user0.getUsername())).thenReturn(Optional.of(user0));
 
-        BidCreationDto newBid = new BidCreationDto(BigDecimal.valueOf(115));
+        BidDto newBid = new BidDto(
+            null,
+            BigDecimal.valueOf(115),
+            null,
+            null,
+            null,
+            null
+        );
 
         assertDoesNotThrow(() -> bidService.placeBid(lot1.getId(), newBid, userDetails));
 
@@ -78,7 +85,14 @@ public class BidServiceTest {
 
         when(lotDao.findById(lot1.getId())).thenReturn(Optional.of(lot1));
 
-        BidCreationDto newBid = new BidCreationDto(BigDecimal.valueOf(105));
+        BidDto newBid = new BidDto(
+            null,
+            BigDecimal.valueOf(105),
+            null,
+            null,
+            null,
+            null
+        );
 
         AuctionException exception = assertThrowsExactly(AuctionException.class, () -> bidService.placeBid(lot1.getId(), newBid, userDetails));
         assertEquals("Bid placement was cancelled. Bid amount does not cover lot's minimum bid increment.", exception.getMessage());

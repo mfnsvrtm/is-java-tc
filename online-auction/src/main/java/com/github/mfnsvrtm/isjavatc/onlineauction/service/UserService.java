@@ -1,8 +1,7 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.UserCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.UserDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.UserDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +23,11 @@ public class UserService {
     }
 
     public UserDto getUserById(int id) {
-        return userMapper.toDto(userDao.findById(id).get());
+        return userMapper.toDtoFull(userDao.findById(id).get());
     }
 
-    public UserDto createUser(UserCreationDto userCreationDto) {
-        User mapped = userMapper.toUser(userCreationDto);
+    public UserDto createUser(UserDto userDto) {
+        User mapped = userMapper.toEntity(userDto);
         mapped.setPassword(passwordEncoder.encode(mapped.getPassword()));
         User saved = userDao.save(mapped);
         return userMapper.toDto(saved);

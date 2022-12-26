@@ -1,7 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.creation.UserCreationDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.UserDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.UserDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +28,8 @@ public class UserController {
     }
 
     @PostMapping("/api/users")
-    public UserDto createUser(@Valid @RequestBody UserCreationDto userCreationDto) {
-        return userService.createUser(userCreationDto);
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        return userService.createUser(userDto);
     }
 
     @DeleteMapping("/api/users/{id}")
