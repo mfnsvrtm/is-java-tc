@@ -18,7 +18,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User userEntity = userDao.findByUsername(username).get();
+        User userEntity = userDao.findByUsername(username).orElseThrow(() ->
+            new UsernameNotFoundException("No user with username '%s' found.".formatted(username))
+        );
         return new org.springframework.security.core.userdetails.User(
             userEntity.getUsername(),
             userEntity.getPassword(),

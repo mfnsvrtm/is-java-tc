@@ -4,6 +4,7 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.TestData;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
+import com.github.mfnsvrtm.isjavatc.onlineauction.exception.EntityNotFoundException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -100,7 +100,7 @@ public class UserServiceTest {
     @Test
     void getUserById_ThrowsForNonExistentId() {
         when(userDao.findById(anyInt())).thenReturn(Optional.empty());
-        assertThrowsExactly(NoSuchElementException.class, () -> userService.getUserById(4));
+        assertThrowsExactly(EntityNotFoundException.class, () -> userService.getUserById(4));
     }
 
     @Test

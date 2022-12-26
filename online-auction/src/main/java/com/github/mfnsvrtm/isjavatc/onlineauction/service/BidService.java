@@ -4,6 +4,8 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
+import com.github.mfnsvrtm.isjavatc.onlineauction.exception.EntityNotFoundException;
+import com.github.mfnsvrtm.isjavatc.onlineauction.exception.FatalUserResolutionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.BidMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +26,7 @@ public class BidService {
     private final BidMapper bidMapper;
 
     public BidDto getBidById(int id) {
-        return bidMapper.toDto(bidDao.findById(id).get());
+        return bidMapper.toDto(bidDao.findById(id).orElseThrow(() -> new EntityNotFoundException(Bid.class, id)));
     }
 
     public List<BidDto> getBidsByLotId(int id) {
@@ -42,14 +44,14 @@ public class BidService {
 
     @Transactional
     public BidDto placeBid(int lotId, BidDto bidDto, UserDetails userDetails) {
-        Lot lot = lotDao.findById(lotId).get();
+        Lot lot = lotDao.findById(lotId).orElseThrow(() -> new EntityNotFoundException(Lot.class, lotId));
         BigDecimal amount = bidDto.getAmount();
 
         if (!isBidAmountSufficient(amount, lot)) {
             throw new AuctionException("Bid placement was cancelled. Bid amount does not cover lot's minimum bid increment.");
         }
 
-        User user = userDao.findByUsername(userDetails.getUsername()).get();
+        User user = userDao.findByUsername(userDetails.getUsername()).orElseThrow(FatalUserResolutionException::new);
         Bid saved = bidDao.save(new Bid(amount, lot, user));
 
         lot.setWinningBid(saved);
@@ -60,7 +62,7 @@ public class BidService {
 
     @Transactional
     public void retractBid(int bidId, UserDetails userDetails) {
-        Bid bid = bidDao.findById(bidId).get();
+        Bid bid = bidDao.findById(bidId).orElseThrow(() -> new EntityNotFoundException(Bid.class, bidId));
         if (!bidBelongsToUser(bid, userDetails)) {
             throw new AuctionException("Unauthorized attempt to retract a bid.");
         }

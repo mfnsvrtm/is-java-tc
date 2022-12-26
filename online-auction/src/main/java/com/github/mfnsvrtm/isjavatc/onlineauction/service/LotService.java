@@ -5,6 +5,8 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.dto.ItemDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
+import com.github.mfnsvrtm.isjavatc.onlineauction.exception.EntityNotFoundException;
+import com.github.mfnsvrtm.isjavatc.onlineauction.exception.FatalUserResolutionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.LotMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +32,9 @@ public class LotService {
     }
 
     public LotDto getLotById(int id) {
-        return lotMapper.toDtoFull(lotDao.findById(id).get());
+        return lotMapper.toDtoFull(lotDao.findById(id).orElseThrow(() ->
+            new EntityNotFoundException(Lot.class, id)
+        ));
     }
 
     public List<LotDto> getLotsByCurrentUser(UserDetails userDetails) {
@@ -39,11 +43,13 @@ public class LotService {
     }
 
     public LotDto createLot(LotDto lotDto, UserDetails userDetails) {
-        User user = userDao.findByUsername(userDetails.getUsername()).get();
+        User user = userDao.findByUsername(userDetails.getUsername()).orElseThrow(FatalUserResolutionException::new);
 
         Category category = null;
         if (lotDto.getItem() != null && lotDto.getItem().getCategory() != null && lotDto.getItem().getCategory().getId() != null) {
-            category = categoryDao.findById(lotDto.getItem().getCategory().getId()).get();
+            category = categoryDao.findById(lotDto.getItem().getCategory().getId()).orElseThrow(() ->
+                new EntityNotFoundException(Category.class, lotDto.getItem().getCategory().getId())
+            );
         }
 
         Lot lot = lotMapper.toEntity(lotDto);
@@ -56,7 +62,7 @@ public class LotService {
 
     public void removeLot(int lotId, UserDetails userDetails) {
         if (!isAdministrator(userDetails)) {
-            Lot lot = lotDao.findById(lotId).get();
+            Lot lot = lotDao.findById(lotId).orElseThrow(() -> new EntityNotFoundException(Lot.class, lotId));
             if (!lotBelongsToUser(lot, userDetails)) {
                 throw new AuctionException("Unauthorized attempt to remove a lot.");
             }
@@ -70,7 +76,9 @@ public class LotService {
 
     @Transactional
     public LotDto updateLot(int lotId, LotDto lotDto, UserDetails userDetails) {
-        int itemId = itemDao.findByLotId(lotId).get().getId();
+        int itemId = itemDao.findByLotId(lotId).orElseThrow(() ->
+            new EntityNotFoundException(Item.class, "by Lot id %d".formatted(lotId))
+        ).getId();
 
         if (lotDto.getItem() != null) {
             ItemDto item = lotDto.getItem();
@@ -82,7 +90,9 @@ public class LotService {
             }
         }
 
-        return lotMapper.toDto(lotDao.findById(lotId).get());
+        return lotMapper.toDto(lotDao.findById(lotId).orElseThrow(() ->
+            new RuntimeException("Could not locate updated lot with id %d.".formatted(lotId)))
+        );
     }
 
     private boolean isAdministrator(UserDetails userDetails) {
