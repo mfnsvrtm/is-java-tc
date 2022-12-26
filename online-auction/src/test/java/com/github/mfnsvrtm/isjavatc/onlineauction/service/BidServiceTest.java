@@ -4,7 +4,7 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.TestData;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.BidDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.LotDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Bid;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Lot;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;

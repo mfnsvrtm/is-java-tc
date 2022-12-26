@@ -1,4 +1,4 @@
-package com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip;
+package com.github.mfnsvrtm.isjavatc.onlineauction.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

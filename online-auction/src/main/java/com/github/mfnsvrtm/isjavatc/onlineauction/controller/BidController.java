@@ -1,6 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.BidService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

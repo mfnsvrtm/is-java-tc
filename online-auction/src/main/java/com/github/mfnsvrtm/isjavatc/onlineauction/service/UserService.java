@@ -1,7 +1,7 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.UserDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.UserDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;

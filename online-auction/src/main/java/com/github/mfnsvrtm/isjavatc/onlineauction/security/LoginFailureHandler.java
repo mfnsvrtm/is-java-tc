@@ -11,7 +11,9 @@ import java.io.IOException;
 public class LoginFailureHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
+    public void onAuthenticationFailure(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getOutputStream().print("login failed - invalid authentication details");
     }

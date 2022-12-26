@@ -1,8 +1,8 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.ItemDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.ItemDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.LotMapper;
@@ -30,7 +30,6 @@ public class LotService {
     }
 
     public LotDto getLotById(int id) {
-        // TODO: List<Bid> topBids = bidDao.findTopBidsByLotId(id);
         return lotMapper.toDtoFull(lotDao.findById(id).get());
     }
 
@@ -83,7 +82,6 @@ public class LotService {
             }
         }
 
-        // TODO: List<Bid> topBids = bidDao.findTopBidsByLotId(lotId);
         return lotMapper.toDto(lotDao.findById(lotId).get());
     }
 

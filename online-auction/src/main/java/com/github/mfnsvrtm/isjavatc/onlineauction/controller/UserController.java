@@ -1,6 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.UserDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.UserDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;

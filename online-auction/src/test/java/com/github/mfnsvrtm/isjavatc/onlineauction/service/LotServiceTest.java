@@ -2,9 +2,9 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.TestData;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.CategoryDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.ItemDto;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.CategoryDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.ItemDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Category;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Lot;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;

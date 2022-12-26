@@ -1,6 +1,6 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.mapper;
 
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Bid;
 import org.mapstruct.*;
 

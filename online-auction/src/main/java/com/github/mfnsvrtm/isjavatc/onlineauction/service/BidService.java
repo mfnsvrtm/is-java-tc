@@ -1,7 +1,7 @@
 package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.BidDto;
+import com.github.mfnsvrtm.isjavatc.onlineauction.dto.BidDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.BidMapper;
