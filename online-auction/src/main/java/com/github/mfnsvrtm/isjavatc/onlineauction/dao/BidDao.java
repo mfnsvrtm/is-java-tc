@@ -16,12 +16,7 @@ public interface BidDao extends ListCrudRepository<Bid, Integer> {
 
     List<Bid> findByLotId(Integer lotId);
 
-    @Query(value = """
-            SELECT * FROM bid
-            WHERE lot_id = ?1 AND retracted = FALSE
-            ORDER BY amount DESC, time DESC LIMIT 20
-            """, nativeQuery = true)
-    List<Bid> findTopBidsByLotId(Integer lotId);
+    List<Bid> findTop20ByLotIdAndRetractedFalseOrderByAmountDescTimeDesc(Integer lotId);
 
     boolean existsByLotIdAndRetractedFalse(Integer lotId);
 
