@@ -77,7 +77,7 @@ public class LotService {
     @Transactional
     public LotDto updateLot(int lotId, LotDto updateDto, UserDetails userDetails) {
         Item itemEntity = itemDao.findByLotId(lotId).orElseThrow(() ->
-            new EntityNotFoundException(Item.class, "by Lot id %d".formatted(lotId))
+            new EntityNotFoundException(Item.class, "by lot id %d".formatted(lotId))
         );
 
         if (!itemBelongsToUser(itemEntity, userDetails)) {
@@ -102,7 +102,6 @@ public class LotService {
     private boolean isAdministrator(UserDetails userDetails) {
         return userDetails.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMINISTRATOR"));
-
     }
 
     private boolean lotBelongsToUser(Lot lot, UserDetails userDetails) {
