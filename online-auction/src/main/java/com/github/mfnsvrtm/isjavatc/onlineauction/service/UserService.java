@@ -4,7 +4,13 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.UserDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.UserMapper;
+import com.github.mfnsvrtm.isjavatc.onlineauction.security.RoleAuthority;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +32,24 @@ public class UserService {
         return userMapper.toDtoFull(userDao.findById(id).get());
     }
 
+    public UserDto getCurrentUser(UserDetails userDetails) {
+        return userMapper.toDtoFull(userDao.findByUsername(userDetails.getUsername()).get());
+    }
+
     public UserDto createUser(UserDto userDto) {
         User mapped = userMapper.toEntity(userDto);
         mapped.setPassword(passwordEncoder.encode(mapped.getPassword()));
         User saved = userDao.save(mapped);
         return userMapper.toDto(saved);
+    }
+
+    public UserDto updateUser(UserDto updateDto, UserDetails authentication) {
+        User user = userDao.findByUsername(authentication.getUsername()).get();
+
+        if (updateDto.getEmail() != null) user.setEmail(updateDto.getEmail());
+        if (updateDto.getPhoneNumber() != null) user.setPhoneNumber(updateDto.getPhoneNumber());
+
+        return userMapper.toDto(userDao.save(user));
     }
 
     public void deleteUserById(int id) {
