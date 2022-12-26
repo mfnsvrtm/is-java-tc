@@ -2,7 +2,6 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.controller;
 
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.LotDto;
 import com.github.mfnsvrtm.isjavatc.onlineauction.service.LotService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;

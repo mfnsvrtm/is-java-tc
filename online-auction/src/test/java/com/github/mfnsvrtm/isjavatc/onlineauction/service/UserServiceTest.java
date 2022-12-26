@@ -3,7 +3,6 @@ package com.github.mfnsvrtm.isjavatc.onlineauction.service;
 import com.github.mfnsvrtm.isjavatc.onlineauction.TestData;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dao.UserDao;
 import com.github.mfnsvrtm.isjavatc.onlineauction.dto.wip.*;
-import com.github.mfnsvrtm.isjavatc.onlineauction.entity.Group;
 import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 

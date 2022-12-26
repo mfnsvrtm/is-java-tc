@@ -11,7 +11,6 @@ import com.github.mfnsvrtm.isjavatc.onlineauction.entity.User;
 import com.github.mfnsvrtm.isjavatc.onlineauction.exception.AuctionException;
 import com.github.mfnsvrtm.isjavatc.onlineauction.mapper.*;
 import com.github.mfnsvrtm.isjavatc.onlineauction.security.RoleAuthority;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
