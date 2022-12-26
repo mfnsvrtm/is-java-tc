@@ -40,6 +40,8 @@ public class LotServiceTest {
     @Mock
     private LotDao lotDao;
     @Mock
+    private ItemDao itemDao;
+    @Mock
     private BidDao bidDao;
     @Mock
     private UserDao userDao;
@@ -166,6 +168,20 @@ public class LotServiceTest {
 
         AuctionException actual = assertThrowsExactly(AuctionException.class, () -> lotService.removeLot(lot0.getId(), userDetails));
         assertEquals("Attempted to remove a lot with active bids.", actual.getMessage());
+    }
+
+    @Test
+    void updateLot_ThrowsUnauthorizedException() {
+        User user0 = TestData.USERS.get(0);
+        Lot lot2 = TestData.LOTS.get(2);
+
+        when(userDetails.getUsername()).thenReturn(user0.getUsername());
+        when(itemDao.findByLotId(lot2.getId())).thenReturn(Optional.of(lot2.getItem()));
+
+        LotDto lotUpdateDto = new LotDto(null, null, null, null, null, null, null, null);
+
+        AuctionException actual = assertThrowsExactly(AuctionException.class, () -> lotService.updateLot(lot2.getId(), lotUpdateDto, userDetails));
+        assertEquals("Unauthorized attempt to update a lot.", actual.getMessage());
     }
 
 }

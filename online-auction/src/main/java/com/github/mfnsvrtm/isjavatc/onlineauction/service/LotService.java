@@ -75,18 +75,22 @@ public class LotService {
     }
 
     @Transactional
-    public LotDto updateLot(int lotId, LotDto lotDto, UserDetails userDetails) {
-        int itemId = itemDao.findByLotId(lotId).orElseThrow(() ->
+    public LotDto updateLot(int lotId, LotDto updateDto, UserDetails userDetails) {
+        Item itemEntity = itemDao.findByLotId(lotId).orElseThrow(() ->
             new EntityNotFoundException(Item.class, "by Lot id %d".formatted(lotId))
-        ).getId();
+        );
 
-        if (lotDto.getItem() != null) {
-            ItemDto item = lotDto.getItem();
-            if (item.getName() != null) {
-                itemDao.updateName(itemId, item.getName());
+        if (!itemBelongsToUser(itemEntity, userDetails)) {
+            throw new AuctionException("Unauthorized attempt to update a lot.");
+        }
+
+        if (updateDto.getItem() != null) {
+            ItemDto updateDtoItem = updateDto.getItem();
+            if (updateDtoItem.getName() != null) {
+                itemDao.updateName(itemEntity.getId(), updateDtoItem.getName());
             }
-            if (item.getDescription() != null) {
-                itemDao.updateDescription(itemId, item.getDescription());
+            if (updateDtoItem.getDescription() != null) {
+                itemDao.updateDescription(itemEntity.getId(), updateDtoItem.getDescription());
             }
         }
 
@@ -102,7 +106,11 @@ public class LotService {
     }
 
     private boolean lotBelongsToUser(Lot lot, UserDetails userDetails) {
-        return lot.getItem().getSeller().getUsername().equals(userDetails.getUsername());
+        return itemBelongsToUser(lot.getItem(), userDetails);
+    }
+
+    private boolean itemBelongsToUser(Item item, UserDetails userDetails) {
+        return item.getSeller().getUsername().equals(userDetails.getUsername());
     }
 
 }
