@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Admin Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/base.css">
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="top-bar">
+                <h1 class="primary">Admin Page</h1>
+                <div class="profile dropdown">
+                    <label for="toggle">
+                        <ion-icon name="person-sharp"></ion-icon>
+                        <span>Profile</span>
+                    </label>
+                    <input type="checkbox" id="toggle">
+                    <ul>
+                        <li><a href="profile.html">Profile Page</a></li>
+                        <div class="separator"><span class="line"></span></div>
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2>User List</h2>
+
+            <div class="horizontal-scroll-container">
+                <table class="data button-column user-table">
+                    <tr>
+                        <th>Id</th>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Address</th>
+                        <th>Groups</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>shanahan.lavern</td>
+                        <td>Madie Leannon</td>
+                        <td>emmerich.rex@okeefe.com</td>
+                        <td>(680) 626-3764</td>
+                        <td>23883 Torphy Shoal Suite 636 Harrisburg, NE 69345</td>
+                        <td></td>
+                        <td class="button-cell">
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>nazar15</td>
+                        <td>Константин Колобов</td>
+                        <td>rada.titov@rambler.ru</td>
+                        <td>+7 (922) 662-9075</td>
+                        <td>943030, Самарская область, город Орехово-Зуево, шоссе Чехова, 16</td>
+                        <td></td>
+                        <td>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>king.william</td>
+                        <td>Luke Anderson</td>
+                        <td>sarah.wood@bailey.com</td>
+                        <td>+44(0)7985 776038</td>
+                        <td>41 Evans SquareLake AnnaNG5 1HT</td>
+                        <td>Administrator</td>
+                        <td>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>
