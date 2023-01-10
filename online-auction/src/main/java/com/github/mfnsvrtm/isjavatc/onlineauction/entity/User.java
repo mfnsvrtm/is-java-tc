@@ -40,7 +40,7 @@ public class User {
     private String phoneNumber;
 
     @NotNull
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private Address address;
     @ManyToMany
     @JoinTable(

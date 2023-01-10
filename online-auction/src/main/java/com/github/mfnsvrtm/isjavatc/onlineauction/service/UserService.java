@@ -47,8 +47,12 @@ public class UserService {
         User user = userDao.findByUsername(authentication.getUsername())
                 .orElseThrow(FatalUserResolutionException::new);
 
-        if (updateDto.getEmail() != null) user.setEmail(updateDto.getEmail());
-        if (updateDto.getPhoneNumber() != null) user.setPhoneNumber(updateDto.getPhoneNumber());
+        if (updateDto.getEmail() != null)
+            user.setEmail(updateDto.getEmail());
+        if (updateDto.getPhoneNumber() != null)
+            user.setPhoneNumber(updateDto.getPhoneNumber());
+        if (updateDto.getAddress() != null && updateDto.getAddress().getAddress() != null)
+            user.getAddress().setAddress(updateDto.getAddress().getAddress());
 
         return userMapper.toDto(userDao.save(user));
     }
