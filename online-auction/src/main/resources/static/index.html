@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Lots</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/base.css">
+    </head>
+    <body>
+        <div class="page-container">
+            <div class="top-bar">
+                <h1 class="primary">Lots</h1>
+                <button class="login hidden">
+                    <ion-icon name="log-in-sharp"></ion-icon>
+                    <span>Log In</span>
+                </button>
+                <div class="profile dropdown">
+                    <label for="toggle">
+                        <ion-icon name="person-sharp"></ion-icon>
+                        <span>Profile</span>
+                    </label>
+                    <input type="checkbox" id="toggle">
+                    <ul>
+                        <li><a href="profile.html">Profile Page</a></li>
+                        <div class="separator"><span class="line"></span></div>
+                        <li><a href="#">Log Out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="primary outline">Create Lot</button>
+
+            <div class="lots-search-bar">
+                <div class="search-bar primary inverted">
+                    <input type="search" placeholder="Search Lots By Name">
+                    <button>
+                        <ion-icon name="search-sharp"></ion-icon>
+                    </button>
+                </div>
+                <select class="primary inverted">
+                    <option>All Lots</option>
+                    <option>My Lots</option>
+                </select>
+            </div>
+
+            <div class="horizontal-scroll-container">
+                <table class="data button-column">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Seller</th>
+                    <th>Price</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>item 0</td>
+                    <td>description 0</td>
+                    <td>seller 0</td>
+                    <td>$10</td>
+                    <td>2023-01-01 05:05</td>
+                    <td>2023-01-02 05:05</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>item 1</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 1</td>
+                    <td>$5</td>
+                    <td>2022-11-07 07:42</td>
+                    <td>2023-01-05 00:00</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>item 2</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 2</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>item 3</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 3</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>item 4</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 4</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>item 5</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 5</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>item 6</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 6</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>item 7</td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+                        ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                    </td>
+                    <td>seller 7</td>
+                    <td>$5</td>
+                    <td>2023-01-01 00:00</td>
+                    <td>2023-01-01 23:59</td>
+                    <td>
+                        <div class="button-stack">
+                            <button class="icon edit">
+                                <ion-icon name="pencil-sharp"></ion-icon>
+                            </button>
+                            <button class="icon delete">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </body>
+</html>

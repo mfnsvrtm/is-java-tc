@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Lot Details</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="top-bar">
+            <h1 class="primary">Lot Details</h1>
+            <button class="login hidden">
+                <ion-icon name="log-in-sharp"></ion-icon>
+                <span>Log In</span>
+            </button>
+            <div class="profile dropdown">
+                <label for="toggle">
+                    <ion-icon name="person-sharp"></ion-icon>
+                    <span>Profile</span>
+                </label>
+                <input type="checkbox" id="toggle">
+                <ul>
+                    <li><a href="profile.html">Profile Page</a></li>
+                    <div class="separator"><span class="line"></span></div>
+                    <li><a href="#">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Lot Details</h2>
+        <div class="horizontal-scroll-container">
+            <table class="info">
+                <tr>
+                    <th>Id</th>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>Current Price</th>
+                    <td>$130.00</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>Samsung Galaxy S10</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>Fully tested and restored to factory settings by our in house technicians. - Good – This product is in good cosmetic condition, there will be signs of wear which may include scratches, visible scuffs and/or screen discoloration but nothing that will impair functionality. Battery health will be a minimum of 80%. The item has been fully tested, restored to factory settings and is in excellent working order.</td>
+                </tr>
+                <tr>
+                    <th>Condition</th>
+                    <td>Good - Refurbished</td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>Cell Phones & Smartphones</td>
+                </tr>
+                <tr>
+                    <th>Seller</th>
+                    <td>shanahan.lavern</td>
+                </tr>
+                <tr>
+                    <th>Starting Price</th>
+                    <td>$115.00</td>
+                </tr>
+                <tr>
+                    <th>Minimum Bid<br> Increment</th>
+                    <td>$1.00</td>
+                </tr>
+                <tr>
+                    <th>Auction Start</th>
+                    <td>2022-11-05 00:00:00</td>
+                </tr>
+                <tr>
+                    <th>Auction End</th>
+                    <td>2023-01-20 00:00:00</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>Winning Bid</h2>
+        <div class="horizontal-scroll-container">
+            <table class="info">
+                <tr>
+                    <th>Id</th>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>Amount</th>
+                    <td>$130.00</td>
+                </tr>
+                <tr>
+                    <th>Time</th>
+                    <td>2022-11-06 12:07:31</td>
+                </tr>
+                <tr>
+                    <th>Bidder</th>
+                    <td>nazar15</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>All Bids</h2>
+
+        <div class="row">
+            <input class="grow" type="number" min="0.01" step="any" placeholder="Bid Value">
+            <button class="primary outline">Place Bid</button>
+        </div>
+
+        <div class="horizontal-scroll-container">
+            <table class="data button-column">
+                <tr>
+                    <th>Id</th>
+                    <th>Amount</th>
+                    <th>Time</th>
+                    <th>Bidder</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>$116.00</td>
+                    <td>2022-11-05 12:07:31</td>
+                    <td>nazar15</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>$117.00</td>
+                    <td>2022-11-05 15:45:05</td>
+                    <td>king.william</td>
+                    <td>
+                        <button class="icon delete">
+                            <ion-icon name="trash-sharp"></ion-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>$118.00</td>
+                    <td>2022-11-05 15:47:21</td>
+                    <td>nazar15</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>$119.00</td>
+                    <td>2022-11-06 07:13:02</td>
+                    <td>king.william</td>
+                    <td>
+                        <button class="icon delete">
+                            <ion-icon name="trash-sharp"></ion-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>$130.00</td>
+                    <td>2022-11-06 12:07:31</td>
+                    <td>nazar15</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

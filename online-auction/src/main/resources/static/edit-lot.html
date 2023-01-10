@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit Lot</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+    <div class="page-container">
+        <div class="top-bar">
+            <h1 class="primary">Edit Lot</h1>
+            <div class="profile dropdown">
+                <label for="toggle">
+                    <ion-icon name="person-sharp"></ion-icon>
+                    <span>Profile</span>
+                </label>
+                <input type="checkbox" id="toggle">
+                <ul>
+                    <li><a href="profile.html">Profile Page</a></li>
+                    <div class="separator"><span class="line"></span></div>
+                    <li><a href="#">Log Out</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <form class="edit">
+            <section>
+                <h3>Item Details</h3>
+
+                <label for="item-name">Name</label>
+                <input id="item-name" type="text" name="itemName">
+
+                <label for="item-desription">Description</label>
+                <textarea id="item-description" name="itemDescription"></textarea>
+
+                <label for="item-condition">Condition</label>
+                <input id="item-condition" type="text" name="itemCondition">
+
+                <label for="item-category">Category</label>
+                <select id="item-category" name="itemCategory">
+                    <option>category 1</option>
+                    <option>category 2</option>
+                    <option>category 3</option>
+                </select>
+            </section>
+
+            <section>
+                <h3>Lot Details</h3>
+
+                <label for="starting-price">Starting Price</label>
+                <input id="starting-price" type="number" min="0.01" step="any" name="startingPrice">
+    
+                <label for="minimum-bid-increment">Minimum Bid Increment</label>
+                <input id="minimum-bid-increment" type="number" min="0.01" step="any" name="minimumBidIncrement">
+    
+                <label for="auction-start">Auction Start</label>
+                <input id="auction-start" type="datetime-local" name="auctionStart">
+    
+                <label for="auction-end">Auction End</label>
+                <input id="auction-end" type="datetime-local" name="auctionEnd">
+            </section>
+
+            <button class="primary" type="submit">Save</button>
+        </form>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
